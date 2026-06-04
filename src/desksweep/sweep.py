@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
+from desksweep.config import DEFAULT_RULES
+
 
 @dataclass
 class MoveAction:
@@ -30,15 +32,6 @@ def scan_surface(root: Path, ignore_hidden: bool = True) -> list[Path]:
         files.append(entry)
     files.sort(key=_scan_sort_key)
     return files
-
-
-DEFAULT_RULES: dict[str, list[str]] = {
-    "Images": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg", ".webp"],
-    "Documents": [".pdf", ".doc", ".docx", ".txt", ".md", ".csv", ".json", ".xml"],
-    "Audio": [".mp3", ".wav", ".flac", ".aac", ".ogg"],
-    "Video": [".mp4", ".avi", ".mkv", ".mov", ".wmv"],
-    "Archives": [".zip", ".tar", ".gz", ".bz2", ".7z", ".rar"],
-}
 
 
 def build_plan(
