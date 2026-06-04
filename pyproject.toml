@@ -1,0 +1,21 @@
+[project]
+name = "desksweep"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "arcpro00", email = "REDACTED" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "mypy>=2.1.0",
+    "pytest>=9.0.3",
+    "ruff>=0.15.16",
+]
+
+[project.scripts]
+desksweep = "desksweep:main"
+
+[build-system]
+requires = ["uv_build>=0.11.8,<0.12.0"]
+build-backend = "uv_build"
