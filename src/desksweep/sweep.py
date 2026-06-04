@@ -32,12 +32,23 @@ def scan_surface(root: Path, ignore_hidden: bool = True) -> list[Path]:
     return files
 
 
+DEFAULT_RULES: dict[str, list[str]] = {
+    "Images": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg", ".webp"],
+    "Documents": [".pdf", ".doc", ".docx", ".txt", ".md", ".csv", ".json", ".xml"],
+    "Audio": [".mp3", ".wav", ".flac", ".aac", ".ogg"],
+    "Video": [".mp4", ".avi", ".mkv", ".mov", ".wmv"],
+    "Archives": [".zip", ".tar", ".gz", ".bz2", ".7z", ".rar"],
+}
+
+
 def build_plan(
     files: list[Path],
     root: Path,
-    rules: dict[str, list[str]],
+    rules: dict[str, list[str]] | None = None,
     default_folder: str = "Review",
 ) -> list[MoveAction]:
+    if rules is None:
+        rules = DEFAULT_RULES
     plan: list[MoveAction] = []
     for file in files:
         matched = False

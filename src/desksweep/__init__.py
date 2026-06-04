@@ -1,2 +1,3 @@
-def main() -> None:
-    print("Hello from desksweep!")
+from desksweep.cli import app as main
+
+__all__ = ["main"]

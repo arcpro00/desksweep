@@ -11,10 +11,11 @@ dependencies = [
     "mypy>=2.1.0",
     "pytest>=9.0.3",
     "ruff>=0.15.16",
+    "typer>=0.26.7",
 ]
 
 [project.scripts]
-desksweep = "desksweep:main"
+desksweep = "desksweep.cli:app"
 
 [build-system]
 requires = ["uv_build>=0.11.8,<0.12.0"]
