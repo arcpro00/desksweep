@@ -3,12 +3,9 @@ from pathlib import Path
 
 from desksweep.sweep import (
     MoveAction,
-    build_plan,
-    execute_plan,
     save_transaction,
-    scan_surface,
-    undo_transaction,
 )
+
 
 def test_save_transaction_creates_json_file(tmp_path: Path):
     source = tmp_path / "Desktop" / "cat.png"
@@ -30,6 +27,7 @@ def test_save_transaction_creates_json_file(tmp_path: Path):
             "destination": str(destination),
         }
     ]
+
 
 def test_save_transaction_creates_unique_files(tmp_path: Path):
     transaction_dir = tmp_path / ".desksweep" / "transactions"

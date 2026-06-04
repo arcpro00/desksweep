@@ -2,12 +2,10 @@ from pathlib import Path
 
 from desksweep.sweep import (
     MoveAction,
-    build_plan,
-    execute_plan,
     save_transaction,
-    scan_surface,
     undo_transaction,
 )
+
 
 def test_undo_transaction_restores_files(tmp_path: Path):
     root = tmp_path / "Desktop"
@@ -30,9 +28,8 @@ def test_undo_transaction_restores_files(tmp_path: Path):
     assert original.read_text() == "fake image"
     assert not moved.exists()
 
-    assert undone == [
-        MoveAction(source=moved, destination=original)
-    ]
+    assert undone == [MoveAction(source=moved, destination=original)]
+
 
 def test_undo_uses_only_given_transaction_file(tmp_path: Path):
     root = tmp_path / "Desktop"
@@ -69,6 +66,4 @@ def test_undo_uses_only_given_transaction_file(tmp_path: Path):
     assert moved_dog.exists()
     assert moved_dog.read_text() == "dog"
 
-    assert undone == [
-        MoveAction(source=moved_cat, destination=original_cat)
-    ]
+    assert undone == [MoveAction(source=moved_cat, destination=original_cat)]

@@ -3,11 +3,8 @@ from pathlib import Path
 from desksweep.sweep import (
     MoveAction,
     build_plan,
-    execute_plan,
-    save_transaction,
-    scan_surface,
-    undo_transaction,
 )
+
 
 def test_build_plan_moves_known_file_types(tmp_path: Path):
     root = tmp_path / "Desktop"
@@ -19,10 +16,7 @@ def test_build_plan_moves_known_file_types(tmp_path: Path):
     pdf = root / "notes.pdf"
     pdf.write_text("notes")
 
-    rules = {
-        "Media/Images": [".png", ".jpg"],
-        "Documents": [".pdf"]
-    }
+    rules = {"Media/Images": [".png", ".jpg"], "Documents": [".pdf"]}
 
     plan = build_plan([image, pdf], root, rules)
 
