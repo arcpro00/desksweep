@@ -3,6 +3,21 @@
 Organizes stray files on your desktop into folders by file type. Preview
 before moving, then undo with a single command if you change your mind.
 
+## Installation
+
+First install [uv](https://docs.astral.sh/uv/getting-started/installation/) if you
+don't have it already:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Then install desksweep:
+
+```bash
+uv pip install git+https://github.com/user/desksweep.git
+```
+
 ## Usage
 
 Preview where files would land (no files are moved):
