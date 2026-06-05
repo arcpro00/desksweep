@@ -1,7 +1,8 @@
 import json
 from pathlib import Path
+from typing import Dict, List, Optional
 
-DEFAULT_RULES: dict[str, list[str]] = {
+DEFAULT_RULES: Dict[str, List[str]] = {
     "Images": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg", ".webp"],
     "Documents": [".pdf", ".doc", ".docx", ".txt", ".md", ".csv", ".json", ".xml"],
     "Audio": [".mp3", ".wav", ".flac", ".aac", ".ogg"],
@@ -13,7 +14,7 @@ CONFIG_DIR = Path.home() / ".desksweep"
 CONFIG_PATH = CONFIG_DIR / "config.json"
 
 
-def load_rules(config_path: Path | None = None) -> dict[str, list[str]]:
+def load_rules(config_path: Optional[Path] = None) -> Dict[str, List[str]]:
     if config_path is None and CONFIG_PATH.exists():
         config_path = CONFIG_PATH
 

@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Optional
 
 import typer
 
@@ -17,7 +18,7 @@ app = typer.Typer()
 @app.command()
 def preview(
     root: Path,
-    config: Path | None = typer.Option(None, "--config", "-c", help="Path to config JSON"),
+    config: Optional[Path] = typer.Option(None, "--config", "-c", help="Path to config JSON"),
 ):
     rules = load_rules(config)
     files = scan_surface(root)
@@ -30,7 +31,7 @@ def preview(
 @app.command()
 def clean(
     root: Path,
-    config: Path | None = typer.Option(None, "--config", "-c", help="Path to config JSON"),
+    config: Optional[Path] = typer.Option(None, "--config", "-c", help="Path to config JSON"),
 ):
     rules = load_rules(config)
     files = scan_surface(root)

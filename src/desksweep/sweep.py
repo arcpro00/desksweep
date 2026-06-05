@@ -4,6 +4,7 @@ import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Dict, List, Optional
 
 from desksweep.config import DEFAULT_RULES
 
@@ -22,8 +23,8 @@ def _scan_sort_key(p: Path) -> float:
         return stat.st_ctime
 
 
-def scan_surface(root: Path, ignore_hidden: bool = True) -> list[Path]:
-    files: list[Path] = []
+def scan_surface(root: Path, ignore_hidden: bool = True) -> List[Path]:
+    files: List[Path] = []
     for entry in root.iterdir():
         if not entry.is_file():
             continue
@@ -35,14 +36,14 @@ def scan_surface(root: Path, ignore_hidden: bool = True) -> list[Path]:
 
 
 def build_plan(
-    files: list[Path],
+    files: List[Path],
     root: Path,
-    rules: dict[str, list[str]] | None = None,
+    rules: Optional[Dict[str, List[str]]] = None,
     default_folder: str = "Review",
-) -> list[MoveAction]:
+) -> List[MoveAction]:
     if rules is None:
         rules = DEFAULT_RULES
-    plan: list[MoveAction] = []
+    plan: List[MoveAction] = []
     for file in files:
         matched = False
         for category, extensions in rules.items():
@@ -65,8 +66,8 @@ def build_plan(
     return plan
 
 
-def execute_plan(plan: list[MoveAction]) -> list[MoveAction]:
-    succeeded: list[MoveAction] = []
+def execute_plan(plan: List[MoveAction]) -> List[MoveAction]:
+    succeeded: List[MoveAction] = []
     for action in plan:
         try:
             action.destination.parent.mkdir(parents=True, exist_ok=True)
@@ -78,7 +79,7 @@ def execute_plan(plan: list[MoveAction]) -> list[MoveAction]:
 
 
 def save_transaction(
-    completed_moves: list[MoveAction],
+    completed_moves: List[MoveAction],
     transaction_dir: Path,
 ) -> Path:
     transaction_dir.mkdir(parents=True, exist_ok=True)
@@ -93,9 +94,9 @@ def save_transaction(
     return transaction_path
 
 
-def undo_transaction(transaction_path: Path) -> list[MoveAction]:
+def undo_transaction(transaction_path: Path) -> List[MoveAction]:
     data = json.loads(transaction_path.read_text())
-    undone: list[MoveAction] = []
+    undone: List[MoveAction] = []
     for entry in data:
         source = Path(entry["destination"])
         destination = Path(entry["source"])
